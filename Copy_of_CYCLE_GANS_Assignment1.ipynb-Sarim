@@ -1,0 +1,1891 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Sarim657/Cycle_GANS_project/blob/main/Copy_of_CYCLE_GANS_Assignment1.ipynb-Sarim\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "kIAcUXNYVeGR"
+      },
+      "source": [
+        "Instructions for the assignment\n",
+        "\n",
+        "\n",
+        "*   Fill the codeblocks according to the comments given\n",
+        "*   Hints are given wherever required\n",
+        "*   Please note that copying will not be tolerated, and appropriate action will be taken if we suspect any misconduct.\n",
+        "*   You're welcome to utilize any online resources in case you feel stuck anywhere :-)\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "UhXvUdK6Stt_"
+      },
+      "source": [
+        "# Section A *(2 Marks each)*"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "oc77CrhjAGlR"
+      },
+      "source": [
+        "## NumPy (Numerical Python)\n",
+        "**bold text**\n",
+        "### Multidimensional array object\n",
+        "- Array is a grid of homogeneous elements which can be indexed in various ways\n",
+        "- Different from Python list which can store different data types\n",
+        "- NumPy stores multidimensional arrays as an instance of **ndarray**\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 82,
+      "metadata": {
+        "id": "WGtRigfyBpgb"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 83,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "UR9ftRnU8_lu",
+        "outputId": "ca87afe5-046b-49a2-8021-6159b4e2aa2e"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([[1, 2, 3],\n",
+              "       [4, 5, 6],\n",
+              "       [7, 8, 9]])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 83
+        }
+      ],
+      "source": [
+        "np.array([1,2,3,4,5])\n",
+        "\n",
+        "np.array([[1,2,3],[4,5,6],[7,8,9]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 84,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WZf-M7KnBkhu",
+        "outputId": "d6d61fae-8c1d-4387-af0b-1d37fc972ea7"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0.03663021 0.24984997 0.09465952 0.76389477]\n",
+            " [0.92554012 0.97938382 0.24168899 0.05057833]\n",
+            " [0.05299513 0.3570932  0.86122321 0.37031929]]\n",
+            "[[0. 0. 0. 0.]\n",
+            " [0. 0. 0. 0.]\n",
+            " [0. 0. 0. 0.]]\n",
+            "[[1. 1. 1. 1.]\n",
+            " [1. 1. 1. 1.]\n",
+            " [1. 1. 1. 1.]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.random.rand(3,4))\n",
+        "\n",
+        "print(np.zeros((3,4)))\n",
+        "\n",
+        "print(np.ones((3,4)))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 85,
+      "metadata": {
+        "id": "Uagv5WtWBknb",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "daebf049-133f-4c05-e5c7-f007fb6b9b72"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1 4]\n",
+            "[1.  3.5 6. ]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.arange(1,6,3))\n",
+        "print(np.linspace(1,6,3))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dFeKiGA5CNXx"
+      },
+      "source": [
+        "### Basic array operations\n",
+        "- algebraic operations\n",
+        "- logical operations"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 86,
+      "metadata": {
+        "id": "mZbgCNnRDVbV"
+      },
+      "outputs": [],
+      "source": [
+        "a = np.array([[-4,6,8], [9, 3, 1], [1, 8, 5]])\n",
+        "b = np.array([[11,16,18], [90, 37, 81], [61, 48, 75]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 87,
+      "metadata": {
+        "id": "QajfAkNHCMqe",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "c2fec5d2-a9df-4d91-8750-d86247a4940b"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[ 7 22 26]\n",
+            " [99 40 82]\n",
+            " [62 56 80]]\n",
+            "[[-15 -10 -10]\n",
+            " [-81 -34 -80]\n",
+            " [-60 -40 -70]]\n",
+            "[[-44  96 144]\n",
+            " [810 111  81]\n",
+            " [ 61 384 375]]\n",
+            "[[-0.36363636  0.375       0.44444444]\n",
+            " [ 0.1         0.08108108  0.01234568]\n",
+            " [ 0.01639344  0.16666667  0.06666667]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.add(a,b))\n",
+        "print(np.subtract(a,b))\n",
+        "print(np.multiply(a,b))\n",
+        "print(np.divide(a,b))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 88,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "hfBR7r80C_qh",
+        "outputId": "756413cd-b0cc-4295-89e5-418370bc9b50"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[ 6 17 14]\n",
+            "[10 13 14]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.sum(a,axis=0))\n",
+        "\n",
+        "print(np.sum(a,axis=1))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 89,
+      "metadata": {
+        "id": "rBTxfTuFDSiA",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "950eeda8-5b5f-4a39-8469-872b8b3f59b9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[-4  6  8]\n",
+            " [ 9  3  1]\n",
+            " [ 1  8  5]]\n",
+            "[[ 5  8  1]\n",
+            " [ 1  3  9]\n",
+            " [ 8  6 -4]]\n",
+            "[[ 1  8  5]\n",
+            " [ 9  3  1]\n",
+            " [-4  6  8]]\n",
+            "[[ 8  6 -4]\n",
+            " [ 1  3  9]\n",
+            " [ 5  8  1]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(a)\n",
+        "print(np.flip(a,axis=None))\n",
+        "\n",
+        "print(np.flip(a,axis=0))\n",
+        "\n",
+        "print(np.flip(a,axis=1))\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "WnCvXc3jCdWH"
+      },
+      "source": [
+        "### Sorting and concatenation\n",
+        "- sort arrays\n",
+        "- join multiple arrays\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 90,
+      "metadata": {
+        "id": "Qsg-EPq7EbPx"
+      },
+      "outputs": [],
+      "source": [
+        "a = np.array([[-4,6,8], [9, 3, 1], [1, 8, 5]])\n",
+        "b = np.array([[11,16,18], [90, 37, 81], [61, 48, 75]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 91,
+      "metadata": {
+        "id": "_7VfP1anCc0O",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "cbb3b0b0-2ae4-46cc-b439-848b6275abd6"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[-4  1  1  3  5  6  8  8  9]\n",
+            "[[-4  3  1]\n",
+            " [ 1  6  5]\n",
+            " [ 9  8  8]]\n",
+            "[[-4  6  8]\n",
+            " [ 1  3  9]\n",
+            " [ 1  5  8]]\n",
+            "[[ 9  8  8]\n",
+            " [ 1  6  5]\n",
+            " [-4  3  1]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.sort(a,axis=None))\n",
+        "\n",
+        "print(np.sort(a,axis=0))\n",
+        "\n",
+        "print(np.sort(a,axis=1))\n",
+        "\n",
+        "print(np.sort(a,axis=0)[::-1])\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 92,
+      "metadata": {
+        "id": "6BqbtdLYEWng",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "6051504e-7497-43f0-9a65-ae809e793e93"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0 1 1]\n",
+            " [2 0 2]\n",
+            " [1 2 0]]\n",
+            "[[0 1 2]\n",
+            " [2 1 0]\n",
+            " [0 2 1]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.argsort(a,axis=0))\n",
+        "\n",
+        "print(np.argsort(a,axis=1))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 93,
+      "metadata": {
+        "id": "cixOoXZhEY8-",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "9577eb86-bc51-41c9-ce07-124e2f25dc41"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[-4  6  8]\n",
+            " [ 9  3  1]\n",
+            " [ 1  8  5]\n",
+            " [11 16 18]\n",
+            " [90 37 81]\n",
+            " [61 48 75]]\n",
+            "[[-4  6  8]\n",
+            " [ 9  3  1]\n",
+            " [ 1  8  5]\n",
+            " [11 16 18]\n",
+            " [90 37 81]\n",
+            " [61 48 75]]\n",
+            "[[-4  6  8]\n",
+            " [ 9  3  1]\n",
+            " [ 1  8  5]\n",
+            " [11 16 18]\n",
+            " [90 37 81]\n",
+            " [61 48 75]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.concatenate((a,b)))\n",
+        "\n",
+        "print(np.concatenate((a,b),axis=0))\n",
+        "\n",
+        "print(np.vstack((a,b)))\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "aY0j33z2EjNx"
+      },
+      "source": [
+        "### Reshaping arrays\n",
+        "- the number of dimensions of the array\n",
+        "-  shape of n-dimensional array as a tuple with n elements s.t. $i^{th}$ element is the length of the $i^{th}$ dimension of the array\n",
+        "- total number of elements of the array\n",
+        "- reshapes the array\n",
+        "- flattens multidimensional array into a 1D array\n",
+        "- adds new dimensions to the array"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 94,
+      "metadata": {
+        "id": "sStUkoh1FG4N"
+      },
+      "outputs": [],
+      "source": [
+        "a = np.array([[4,6,8], [9, 3, 1], [1, 8, 5]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 95,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vb35oi57Ev1f",
+        "outputId": "88bc879a-d097-49ad-8607-c729d2f1bb77"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2\n",
+            "(3, 3)\n",
+            "9\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.ndim(a))\n",
+        "\n",
+        "print(np.shape(a))\n",
+        "\n",
+        "print(np.size(a))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 96,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MznU0NWKE54c",
+        "outputId": "cfa7b76c-8579-421c-c631-d4312c5db5e6"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([[4, 6, 8, 9, 3, 1, 1, 8, 5]])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 96
+        }
+      ],
+      "source": [
+        "np.reshape(a,(1,9))\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 97,
+      "metadata": {
+        "id": "p1dlxcNYE8tv",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "695aa987-9e96-468b-8dd2-70e92ab1c9d3"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[[4]\n",
+            "  [6]\n",
+            "  [8]]\n",
+            "\n",
+            " [[9]\n",
+            "  [3]\n",
+            "  [1]]\n",
+            "\n",
+            " [[1]\n",
+            "  [8]\n",
+            "  [5]]]\n",
+            "[[[4]\n",
+            "  [6]\n",
+            "  [8]]\n",
+            "\n",
+            " [[9]\n",
+            "  [3]\n",
+            "  [1]]\n",
+            "\n",
+            " [[1]\n",
+            "  [8]\n",
+            "  [5]]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.expand_dims(a, axis=2))\n",
+        "b = a[:, :,np.newaxis]\n",
+        "print(b)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Ng4xWkwpFtao"
+      },
+      "source": [
+        "### Indexing and slicing\n",
+        "- NumPy allows indexing array using tuple of nonnegative integers, booleans, array or integers"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 98,
+      "metadata": {
+        "id": "swrtOhPGGB7r"
+      },
+      "outputs": [],
+      "source": [
+        "a = np.array([[4,6,0], [0, 3, 1], [1, 8, 5]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 99,
+      "metadata": {
+        "id": "w3QaVYRyFs77",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "20be3a29-8a85-4aa8-84bf-05cb9414654c"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "8\n",
+            "[[4 6]\n",
+            " [0 3]]\n",
+            "1\n",
+            "1\n",
+            "[[6 0]\n",
+            " [3 1]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "#indexing example\n",
+        "print(a[2,1])\n",
+        "#slicing example\n",
+        "print(a[0:2,0:2])\n",
+        "#indexing by a integer\n",
+        "print(a[1, 2])\n",
+        "# indexing by a tuple\n",
+        "print(a[(1,2)])\n",
+        "# using range\n",
+        "print(a[0:2, 1:3])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 100,
+      "metadata": {
+        "id": "Xn2_z5h-Fmrd",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "518cd79e-5792-48fa-ea37-492550758baf"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "(array([0, 2, 2]), array([1, 1, 2]))\n",
+            "(array([0, 2]), array([1, 1]))\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(np.where(a>4))\n",
+        "\n",
+        "print(np.where((a>4) & (a%2==0)))\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "GWU0EfaAG2ll"
+      },
+      "source": [
+        "### Copying arrays\n",
+        "- new array object with a copy of the data\n",
+        "- Changes made in the copy array is not reflected in the original array"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 101,
+      "metadata": {
+        "id": "ijdgy02lHMJW"
+      },
+      "outputs": [],
+      "source": [
+        "a = np.array([[4,6,0], [0, 3, 1], [1, 8, 5]])"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 102,
+      "metadata": {
+        "id": "FmgUdh66GuQH",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "1f0f2fea-042d-45b4-831a-acb49a2fb1f9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[5 7 1]\n",
+            " [1 4 2]\n",
+            " [2 9 6]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "b=np.copy(a)\n",
+        "b=b+1\n",
+        "print(b)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "M1KLD5QxHsVw"
+      },
+      "source": [
+        "## Pandas ( Python Data Analysis Library)\n",
+        "\n",
+        "### Main Features\n",
+        "- Easy handling of missing data in both floating point and non-floating point data.\n",
+        "- Automatic and explicit data alignment, making it easy to perform computations and transformations on data sets.\n",
+        "\n"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "v1CuU3FeIq1a"
+      },
+      "source": [
+        "#### Generating the dataset"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "fp36ZqOMIy7k"
+      },
+      "source": [
+        "Run the following load command to get the 2-Dim iris dataset. Do the following operations on it and please dont edit this cell"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 103,
+      "metadata": {
+        "id": "A_O5RTBXIyK-"
+      },
+      "outputs": [],
+      "source": [
+        "url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'\n",
+        "iris_2d = np.genfromtxt(url, delimiter=',', dtype='float', usecols=[0,1,2,3])"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "EILb6pPrS8Ju"
+      },
+      "source": [
+        "#### Basic Data Analysis"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 104,
+      "metadata": {
+        "id": "bViO1LLoI7sz",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "c96c6bef-fc9d-4e05-fc5c-21e3a51a8558"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       0    1    2    3\n",
+              "0    5.1  3.5  1.4  0.2\n",
+              "1    4.9  3.0  1.4  0.2\n",
+              "2    4.7  3.2  1.3  0.2\n",
+              "3    4.6  3.1  1.5  0.2\n",
+              "4    5.0  3.6  1.4  0.2\n",
+              "..   ...  ...  ...  ...\n",
+              "145  6.7  3.0  5.2  2.3\n",
+              "146  6.3  2.5  5.0  1.9\n",
+              "147  6.5  3.0  5.2  2.0\n",
+              "148  6.2  3.4  5.4  2.3\n",
+              "149  5.9  3.0  5.1  1.8\n",
+              "\n",
+              "[150 rows x 4 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-d932700d-0886-421d-b038-c4e96e31d92d\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "      <th>1</th>\n",
+              "      <th>2</th>\n",
+              "      <th>3</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>5.1</td>\n",
+              "      <td>3.5</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>4.9</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>4.7</td>\n",
+              "      <td>3.2</td>\n",
+              "      <td>1.3</td>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4.6</td>\n",
+              "      <td>3.1</td>\n",
+              "      <td>1.5</td>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5.0</td>\n",
+              "      <td>3.6</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>145</th>\n",
+              "      <td>6.7</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.2</td>\n",
+              "      <td>2.3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>146</th>\n",
+              "      <td>6.3</td>\n",
+              "      <td>2.5</td>\n",
+              "      <td>5.0</td>\n",
+              "      <td>1.9</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>147</th>\n",
+              "      <td>6.5</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.2</td>\n",
+              "      <td>2.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>148</th>\n",
+              "      <td>6.2</td>\n",
+              "      <td>3.4</td>\n",
+              "      <td>5.4</td>\n",
+              "      <td>2.3</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>149</th>\n",
+              "      <td>5.9</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.1</td>\n",
+              "      <td>1.8</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>150 rows × 4 columns</p>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-d932700d-0886-421d-b038-c4e96e31d92d')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-d932700d-0886-421d-b038-c4e96e31d92d button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-d932700d-0886-421d-b038-c4e96e31d92d');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "<div id=\"df-ffad73b9-0a64-465f-9846-a5147c85b767\">\n",
+              "  <button class=\"colab-df-quickchart\" onclick=\"quickchart('df-ffad73b9-0a64-465f-9846-a5147c85b767')\"\n",
+              "            title=\"Suggest charts\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "     width=\"24px\">\n",
+              "    <g>\n",
+              "        <path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z\"/>\n",
+              "    </g>\n",
+              "</svg>\n",
+              "  </button>\n",
+              "\n",
+              "<style>\n",
+              "  .colab-df-quickchart {\n",
+              "      --bg-color: #E8F0FE;\n",
+              "      --fill-color: #1967D2;\n",
+              "      --hover-bg-color: #E2EBFA;\n",
+              "      --hover-fill-color: #174EA6;\n",
+              "      --disabled-fill-color: #AAA;\n",
+              "      --disabled-bg-color: #DDD;\n",
+              "  }\n",
+              "\n",
+              "  [theme=dark] .colab-df-quickchart {\n",
+              "      --bg-color: #3B4455;\n",
+              "      --fill-color: #D2E3FC;\n",
+              "      --hover-bg-color: #434B5C;\n",
+              "      --hover-fill-color: #FFFFFF;\n",
+              "      --disabled-bg-color: #3B4455;\n",
+              "      --disabled-fill-color: #666;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart {\n",
+              "    background-color: var(--bg-color);\n",
+              "    border: none;\n",
+              "    border-radius: 50%;\n",
+              "    cursor: pointer;\n",
+              "    display: none;\n",
+              "    fill: var(--fill-color);\n",
+              "    height: 32px;\n",
+              "    padding: 0;\n",
+              "    width: 32px;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart:hover {\n",
+              "    background-color: var(--hover-bg-color);\n",
+              "    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "    fill: var(--button-hover-fill-color);\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart-complete:disabled,\n",
+              "  .colab-df-quickchart-complete:disabled:hover {\n",
+              "    background-color: var(--disabled-bg-color);\n",
+              "    fill: var(--disabled-fill-color);\n",
+              "    box-shadow: none;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-spinner {\n",
+              "    border: 2px solid var(--fill-color);\n",
+              "    border-color: transparent;\n",
+              "    border-bottom-color: var(--fill-color);\n",
+              "    animation:\n",
+              "      spin 1s steps(1) infinite;\n",
+              "  }\n",
+              "\n",
+              "  @keyframes spin {\n",
+              "    0% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "      border-left-color: var(--fill-color);\n",
+              "    }\n",
+              "    20% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    30% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    40% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    60% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    80% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "    90% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "  }\n",
+              "</style>\n",
+              "\n",
+              "  <script>\n",
+              "    async function quickchart(key) {\n",
+              "      const quickchartButtonEl =\n",
+              "        document.querySelector('#' + key + ' button');\n",
+              "      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.\n",
+              "      quickchartButtonEl.classList.add('colab-df-spinner');\n",
+              "      try {\n",
+              "        const charts = await google.colab.kernel.invokeFunction(\n",
+              "            'suggestCharts', [key], {});\n",
+              "      } catch (error) {\n",
+              "        console.error('Error during call to suggestCharts:', error);\n",
+              "      }\n",
+              "      quickchartButtonEl.classList.remove('colab-df-spinner');\n",
+              "      quickchartButtonEl.classList.add('colab-df-quickchart-complete');\n",
+              "    }\n",
+              "    (() => {\n",
+              "      let quickchartButtonEl =\n",
+              "        document.querySelector('#df-ffad73b9-0a64-465f-9846-a5147c85b767 button');\n",
+              "      quickchartButtonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "    })();\n",
+              "  </script>\n",
+              "</div>\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 150,\n  \"fields\": [\n    {\n      \"column\": 0,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.828066127977863,\n        \"min\": 4.3,\n        \"max\": 7.9,\n        \"num_unique_values\": 35,\n        \"samples\": [\n          6.2,\n          4.5,\n          5.6\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 1,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.4335943113621737,\n        \"min\": 2.0,\n        \"max\": 4.4,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          2.3,\n          4.0,\n          3.5\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 2,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1.7644204199522626,\n        \"min\": 1.0,\n        \"max\": 6.9,\n        \"num_unique_values\": 43,\n        \"samples\": [\n          6.7,\n          3.8,\n          3.7\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 3,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.7631607417008411,\n        \"min\": 0.1,\n        \"max\": 2.5,\n        \"num_unique_values\": 22,\n        \"samples\": [\n          0.2,\n          1.2,\n          1.3\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 104
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "df=pd.DataFrame(iris_2d)\n",
+        "df.dropna()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 105,
+      "metadata": {
+        "id": "zp_BYv5EJDjJ",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "5d0f1999-e64f-4c97-bd03-42f41864db70"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "-0.10936924995064937"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 105
+        }
+      ],
+      "source": [
+        "correlation = df.iloc[:, 0].corr(df.iloc[:, 1])\n",
+        "correlation"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 106,
+      "metadata": {
+        "id": "0mjeoZCwJDoW",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "825b1a41-b99e-4bbc-c355-3f5bb937d7f5"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3.758666666666666\n",
+            "4.35\n",
+            "1.7644204199522626\n"
+          ]
+        }
+      ],
+      "source": [
+        "print(df[2].mean())\n",
+        "print(df[2].median())\n",
+        "print(df[2].std())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 107,
+      "metadata": {
+        "id": "bRiYEhWTJDrM",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 423
+        },
+        "outputId": "df304a8d-28e4-4106-bb33-4364c311ad7d"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       0    1    2    3      volume\n",
+              "0    5.1  3.5  1.4  0.2   38.113320\n",
+              "1    4.9  3.0  1.4  0.2   35.182653\n",
+              "2    4.7  3.2  1.3  0.2   30.057127\n",
+              "3    4.6  3.1  1.5  0.2   33.221200\n",
+              "4    5.0  3.6  1.4  0.2   36.633333\n",
+              "..   ...  ...  ...  ...         ...\n",
+              "145  6.7  3.0  5.2  2.3  244.321307\n",
+              "146  6.3  2.5  5.0  1.9  207.711000\n",
+              "147  6.5  3.0  5.2  2.0  229.952667\n",
+              "148  6.2  3.4  5.4  2.3  217.262880\n",
+              "149  5.9  3.0  5.1  1.8  185.815780\n",
+              "\n",
+              "[150 rows x 5 columns]"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-bf547465-3a72-4881-af4c-4f3ba3d584e9\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "      <th>1</th>\n",
+              "      <th>2</th>\n",
+              "      <th>3</th>\n",
+              "      <th>volume</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>5.1</td>\n",
+              "      <td>3.5</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "      <td>38.113320</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>4.9</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "      <td>35.182653</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>4.7</td>\n",
+              "      <td>3.2</td>\n",
+              "      <td>1.3</td>\n",
+              "      <td>0.2</td>\n",
+              "      <td>30.057127</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4.6</td>\n",
+              "      <td>3.1</td>\n",
+              "      <td>1.5</td>\n",
+              "      <td>0.2</td>\n",
+              "      <td>33.221200</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>5.0</td>\n",
+              "      <td>3.6</td>\n",
+              "      <td>1.4</td>\n",
+              "      <td>0.2</td>\n",
+              "      <td>36.633333</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>145</th>\n",
+              "      <td>6.7</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.2</td>\n",
+              "      <td>2.3</td>\n",
+              "      <td>244.321307</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>146</th>\n",
+              "      <td>6.3</td>\n",
+              "      <td>2.5</td>\n",
+              "      <td>5.0</td>\n",
+              "      <td>1.9</td>\n",
+              "      <td>207.711000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>147</th>\n",
+              "      <td>6.5</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.2</td>\n",
+              "      <td>2.0</td>\n",
+              "      <td>229.952667</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>148</th>\n",
+              "      <td>6.2</td>\n",
+              "      <td>3.4</td>\n",
+              "      <td>5.4</td>\n",
+              "      <td>2.3</td>\n",
+              "      <td>217.262880</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>149</th>\n",
+              "      <td>5.9</td>\n",
+              "      <td>3.0</td>\n",
+              "      <td>5.1</td>\n",
+              "      <td>1.8</td>\n",
+              "      <td>185.815780</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>150 rows × 5 columns</p>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-bf547465-3a72-4881-af4c-4f3ba3d584e9')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-bf547465-3a72-4881-af4c-4f3ba3d584e9 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-bf547465-3a72-4881-af4c-4f3ba3d584e9');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "<div id=\"df-ecc23893-b45a-43a5-9317-85bea76aa421\">\n",
+              "  <button class=\"colab-df-quickchart\" onclick=\"quickchart('df-ecc23893-b45a-43a5-9317-85bea76aa421')\"\n",
+              "            title=\"Suggest charts\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "     width=\"24px\">\n",
+              "    <g>\n",
+              "        <path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z\"/>\n",
+              "    </g>\n",
+              "</svg>\n",
+              "  </button>\n",
+              "\n",
+              "<style>\n",
+              "  .colab-df-quickchart {\n",
+              "      --bg-color: #E8F0FE;\n",
+              "      --fill-color: #1967D2;\n",
+              "      --hover-bg-color: #E2EBFA;\n",
+              "      --hover-fill-color: #174EA6;\n",
+              "      --disabled-fill-color: #AAA;\n",
+              "      --disabled-bg-color: #DDD;\n",
+              "  }\n",
+              "\n",
+              "  [theme=dark] .colab-df-quickchart {\n",
+              "      --bg-color: #3B4455;\n",
+              "      --fill-color: #D2E3FC;\n",
+              "      --hover-bg-color: #434B5C;\n",
+              "      --hover-fill-color: #FFFFFF;\n",
+              "      --disabled-bg-color: #3B4455;\n",
+              "      --disabled-fill-color: #666;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart {\n",
+              "    background-color: var(--bg-color);\n",
+              "    border: none;\n",
+              "    border-radius: 50%;\n",
+              "    cursor: pointer;\n",
+              "    display: none;\n",
+              "    fill: var(--fill-color);\n",
+              "    height: 32px;\n",
+              "    padding: 0;\n",
+              "    width: 32px;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart:hover {\n",
+              "    background-color: var(--hover-bg-color);\n",
+              "    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "    fill: var(--button-hover-fill-color);\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart-complete:disabled,\n",
+              "  .colab-df-quickchart-complete:disabled:hover {\n",
+              "    background-color: var(--disabled-bg-color);\n",
+              "    fill: var(--disabled-fill-color);\n",
+              "    box-shadow: none;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-spinner {\n",
+              "    border: 2px solid var(--fill-color);\n",
+              "    border-color: transparent;\n",
+              "    border-bottom-color: var(--fill-color);\n",
+              "    animation:\n",
+              "      spin 1s steps(1) infinite;\n",
+              "  }\n",
+              "\n",
+              "  @keyframes spin {\n",
+              "    0% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "      border-left-color: var(--fill-color);\n",
+              "    }\n",
+              "    20% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    30% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    40% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    60% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    80% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "    90% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "  }\n",
+              "</style>\n",
+              "\n",
+              "  <script>\n",
+              "    async function quickchart(key) {\n",
+              "      const quickchartButtonEl =\n",
+              "        document.querySelector('#' + key + ' button');\n",
+              "      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.\n",
+              "      quickchartButtonEl.classList.add('colab-df-spinner');\n",
+              "      try {\n",
+              "        const charts = await google.colab.kernel.invokeFunction(\n",
+              "            'suggestCharts', [key], {});\n",
+              "      } catch (error) {\n",
+              "        console.error('Error during call to suggestCharts:', error);\n",
+              "      }\n",
+              "      quickchartButtonEl.classList.remove('colab-df-spinner');\n",
+              "      quickchartButtonEl.classList.add('colab-df-quickchart-complete');\n",
+              "    }\n",
+              "    (() => {\n",
+              "      let quickchartButtonEl =\n",
+              "        document.querySelector('#df-ecc23893-b45a-43a5-9317-85bea76aa421 button');\n",
+              "      quickchartButtonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "    })();\n",
+              "  </script>\n",
+              "</div>\n",
+              "\n",
+              "  <div id=\"id_d66d9e72-3909-42bc-b091-2efaf7037142\">\n",
+              "    <style>\n",
+              "      .colab-df-generate {\n",
+              "        background-color: #E8F0FE;\n",
+              "        border: none;\n",
+              "        border-radius: 50%;\n",
+              "        cursor: pointer;\n",
+              "        display: none;\n",
+              "        fill: #1967D2;\n",
+              "        height: 32px;\n",
+              "        padding: 0 0 0 0;\n",
+              "        width: 32px;\n",
+              "      }\n",
+              "\n",
+              "      .colab-df-generate:hover {\n",
+              "        background-color: #E2EBFA;\n",
+              "        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "        fill: #174EA6;\n",
+              "      }\n",
+              "\n",
+              "      [theme=dark] .colab-df-generate {\n",
+              "        background-color: #3B4455;\n",
+              "        fill: #D2E3FC;\n",
+              "      }\n",
+              "\n",
+              "      [theme=dark] .colab-df-generate:hover {\n",
+              "        background-color: #434B5C;\n",
+              "        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "        fill: #FFFFFF;\n",
+              "      }\n",
+              "    </style>\n",
+              "    <button class=\"colab-df-generate\" onclick=\"generateWithVariable('df')\"\n",
+              "            title=\"Generate code using this dataframe.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "    <script>\n",
+              "      (() => {\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#id_d66d9e72-3909-42bc-b091-2efaf7037142 button.colab-df-generate');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      buttonEl.onclick = () => {\n",
+              "        google.colab.notebook.generateWithVariable('df');\n",
+              "      }\n",
+              "      })();\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "variable_name": "df",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 150,\n  \"fields\": [\n    {\n      \"column\": 0,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.828066127977863,\n        \"min\": 4.3,\n        \"max\": 7.9,\n        \"num_unique_values\": 35,\n        \"samples\": [\n          6.2,\n          4.5,\n          5.6\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 1,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.4335943113621737,\n        \"min\": 2.0,\n        \"max\": 4.4,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          2.3,\n          4.0,\n          3.5\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 2,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1.7644204199522626,\n        \"min\": 1.0,\n        \"max\": 6.9,\n        \"num_unique_values\": 43,\n        \"samples\": [\n          6.7,\n          3.8,\n          3.7\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 3,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.7631607417008411,\n        \"min\": 0.1,\n        \"max\": 2.5,\n        \"num_unique_values\": 22,\n        \"samples\": [\n          0.2,\n          1.2,\n          1.3\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"volume\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 102.78222508996734,\n        \"min\": 21.288153333333337,\n        \"max\": 428.19238,\n        \"num_unique_values\": 123,\n        \"samples\": [\n          40.835699999999996,\n          91.58333333333333,\n          150.72\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 107
+        }
+      ],
+      "source": [
+        "V=[]\n",
+        "for i in range(len(df)):\n",
+        "  V.append((3.14*df.iloc[i,2]*((df.iloc[i,0])**2))/3)\n",
+        "df[\"volume\"]=V\n",
+        "df"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dGqrG93ELEQ3"
+      },
+      "source": [
+        "# Section B *(2 Marks each)*"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "OLm8jv7tMH6h"
+      },
+      "source": [
+        "###NumPy"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "zE1n0x7ZLRLU"
+      },
+      "source": [
+        "Q1 Let x = np.arange(4, dtype=np.int64). Create an array of ones with the same shape and type as X."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 108,
+      "metadata": {
+        "id": "H8o9C6b7LJzA",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "00cde3d1-c22b-4252-b75d-46410ff6c102"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([1, 1, 1, 1])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 108
+        }
+      ],
+      "source": [
+        "x = np.arange(4, dtype=np.int64)\n",
+        "y=np.ones_like(x)\n",
+        "y"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "PPYeTqoHLSNj"
+      },
+      "source": [
+        "Q2 Let x be an array [1, 2, 3, ..., 9]. Split x into 3 arrays, each of which has 4, 2, and 3 elements in the original order."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 109,
+      "metadata": {
+        "id": "DS9mr30LLYdg",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "535af16d-3995-4d95-db1a-6a73a23fc53a"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "[array([1, 2, 3, 4]), array([5, 6]), array([7, 8, 9])]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 109
+        }
+      ],
+      "source": [
+        "x=np.arange(1,10)\n",
+        "s = np.array_split(x, [4, 6])\n",
+        "s"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "b1wJaooRLXjN"
+      },
+      "source": [
+        "Q3 Initiate x as a 2x5 array with random values from 0 to 10(not inclusive).Get the maximum and minimum values and their indices of x along the second axis."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 110,
+      "metadata": {
+        "id": "GnXDqksjLf89",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "60d0d395-63d0-4755-9fd1-9b4bbe3ad7a5"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[9.88467428 9.92064897]\n",
+            "[4 3]\n",
+            "[1.92241059 6.26788243]\n",
+            "[3 0]\n"
+          ]
+        }
+      ],
+      "source": [
+        "x = np.random.rand(2, 5) * 10\n",
+        "print(np.max(x,axis=1));\n",
+        "print(np.argmax(x,axis=1));\n",
+        "print(np.min(x,axis=1));\n",
+        "print(np.argmin(x,axis=1));"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8_Q7fbyxMMHM"
+      },
+      "source": [
+        "### Pandas"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "3QpaFHkxJUho"
+      },
+      "source": [
+        "Run the following load command and solve the following questions"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 111,
+      "metadata": {
+        "id": "mLdcY49iJDtl"
+      },
+      "outputs": [],
+      "source": [
+        "url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'\n",
+        "iris = np.genfromtxt(url, delimiter=',', dtype='object')\n",
+        "names = ('sepallength', 'sepalwidth', 'petallength', 'petalwidth', 'species')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "zbDepnx9RtV8"
+      },
+      "source": [
+        "Q4 Write a Pandas function to find the count of unique species."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 112,
+      "metadata": {
+        "id": "oAkO0UnqJDv7",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "617be714-7754-4124-e0fe-6a3481312602"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "4\n",
+              "b'Iris-setosa'        50\n",
+              "b'Iris-versicolor'    50\n",
+              "b'Iris-virginica'     50\n",
+              "Name: count, dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 112
+        }
+      ],
+      "source": [
+        "data=pd.DataFrame(iris)\n",
+        "data[4].value_counts()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Usj5HlvyRxal"
+      },
+      "source": [
+        "# Q5 Write a Pandas function to bin the petal length (3rd) column of iris_2d to form a text array, such that if petal length is:\n",
+        "- Less than 3 –> ‘small’\n",
+        "- 3-5 –> ‘medium’\n",
+        "- greater than equal to 5 –> ‘large’"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 113,
+      "metadata": {
+        "id": "gTWWJoLMJDxx",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "aedcda6b-d2d8-4aa6-d9bd-f6b6042a36cc"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0      small\n",
+              "1      small\n",
+              "2      small\n",
+              "3      small\n",
+              "4      small\n",
+              "       ...  \n",
+              "145    large\n",
+              "146    large\n",
+              "147    large\n",
+              "148    large\n",
+              "149    large\n",
+              "Length: 150, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 113
+        }
+      ],
+      "source": [
+        "pd.Series(np.select([df[2] < 3, (df[2] >= 3) & (df[2] < 5), df[2] >= 5],['small', 'medium', 'large'], default=''))"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "IbBYP_8sSBrB"
+      },
+      "source": [
+        "Q6 Write a Pandas function to find the most frequent value of petal length (3rd column) in iris dataset"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 114,
+      "metadata": {
+        "id": "DNk_tlVWJufR",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "cedeeb65-cf05-48f7-917e-1e143ad6dd68"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    b'1.5'\n",
+              "Name: 2, dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 114
+        }
+      ],
+      "source": [
+        "data[2].mode()"
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
